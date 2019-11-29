@@ -39,7 +39,7 @@ def scrapmagnet(site,se="pirate"):
 def piratebay(term):
 	global name,link
 #	term=term.replace(' ','+')
-	pblnk="https://indiaboat.art"
+	pblnk="https://ahoythepirate.in"
 	print('\n\n[i] Please Wait Searching Data...')
 	term=urllib.parse.quote_plus(term.strip())
 	site=pblnk+"/s/?q="+term+"&page=&orderby="
