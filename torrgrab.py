@@ -81,10 +81,11 @@ def piratebay(term):
 		else:
 			break
 
-def torrentz(term):
+def torrentz(term,pblnk=None):
 	global name,link
 	term=term.replace(' ','+')
-	pblnk="https://torrentz2eu.in"
+	if not pblink:
+		pblnk="https://torrentz2eu.in"
 	print('\n\n[i] Please Wait Searching Data...')
 	term=urllib.parse.quote_plus(term.strip())
 	site=pblnk+"/?q="+term
