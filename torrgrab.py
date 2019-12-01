@@ -114,12 +114,7 @@ def torrentz(term):
 		p1=dt.find('magnet',p1)+6
 		tmp=dt[p1:dt.find('"',p1)]
 		link.append(tmp)
-	for i in range(len(link)):
-		print(f'''\n\n[ {i+1} ] TORRENT NUMBER #{i+1} ''')
-		print('\tName: ',name[i])
-		#print('\tLink: ',link[i])
-		print('\tSeed: ',seed[i])
-		print('\tInfo: ',info[i])
+	return link
 def mag2tor(name,hash):
 	base="https://itorrents.org"
 	base+="/torrent/"+hash+".torrent"
@@ -134,67 +129,3 @@ def mag2tor(name,hash):
 		print("\n\n\n[!] You Need To use A VPN To Fetch Torrent...")
 		return False
 
-if len(sys.argv)==2:
-	if "u" in sys.argv[1]:
-		print('\n\nUpdating TorrGrab...')
-		urllib.request.urlretrieve('https://raw.githubusercontent.com/TheSpeedX/TorrGrab/master/torrgrab.py', 'torrgrab.py')
-print("[i] Search Engines Available: 2\n")
-print('\t[1]\tPirateBay')
-print('\t[2]\tTorrentz')
-print('\n\n')
-se=''
-
-cho=input("Choose Engine [ 1 - 2 ]: ")
-
-term=input("[?] Enter What to search: ")
-if "1" in cho:
-	se='piratebay'
-	while " " in term:
-		print('Spaces Are Not Allowed In Searches \n You Can use WildCards.')
-		term=input("[?] Enter What to search: ")
-	piratebay(term)
-elif "2" in cho:
-	se='torrentz'
-	torrentz(term)
-else:
-	print('[-] Wrong Input.. \n\n[i]Using PirateBay By default')
-	piratebay(term)
-if len(link)==0:
-	print("Sorry No Links Found...\nExiting Termux")
-	exit()
-try:
-	inp=int(input("Enter Link Number: "))
-except:
-	print('Exiting TorrGrab')
-	exit()
-name=name[inp-1]
-magnet=scrapmagnet(link[inp-1],se)
-hash=magnet[magnet.find('btih:')+5:magnet.find('&')]
-fn=name.replace(" ","_")+".torrent"
-
-print("[i] Files will be Downloaded by default torrent app on your System\n\n")
-print("\n\n\n[i] Title: ",name)
-print("[i] Magnet Link: ",magnet)
-print("[i] Info Hash: ",hash)
-print('\n\n Fetching .torrent File From Magnet Link...')
-res=mag2tor(fn,hash)
-
-if not res:
-	print('[i] Exiting TorrGrab..')
-	exit()
-
-
-cho=input('\n\n\n[i] Start Download (Y/N) : ')
-if cho.lower().strip()=='y':
-	if sys.platform == "win32":
-	    os.startfile(fn)
-	else:
-		opener = "open" if sys.platform == "darwin" else "xdg-open"
-		subprocess.call([opener, fn])
-# 	elif platform.system() == 'Darwin':  # macOS
-# 	    subprocess.call(('open', fn))
-# 	elif platform.system() == 'Linux':
-# 	    subprocess.call(('xdg-open', fn))
-else:
-	print('[i] Exiting TorrGrab..')
-	exit()
